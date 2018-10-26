@@ -1,0 +1,100 @@
+<% include ../partials/header %>
+    <!--http://troncdev.com/email-enewspaper-refresh/template.php?market=la&version=1&type=acquisition-->
+<section>
+    <div>
+        <h3>
+            URL is: <%= Objlink.url1 %>
+        </h3>
+        <table class="center-table">
+            <thead>
+                <tr>
+                    <th colspan="3">
+                         <h1>Links present on the webpage</h1>    
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="table-head">
+                    <td> # </td>
+                    <td>a tag URL</td>
+                    <td> Secure  </td>
+                </tr>
+                <% Objlink.arrLinks.forEach(function(ele){ %>
+                    <tr>
+                        <td>
+                            <li></li>
+                        </td>
+                        <td>
+                            <a target="_blank" href="<%=ele%>"><%=ele%></a>
+                        </td>
+                        <td>
+                             <%
+                                const secure = ele;
+                                var x = null;
+                                if(secure.match(/https/g)){
+                               
+                                    x = true;
+                                } else {
+                                    x = false;
+                                } %>
+                            <i style="color: red"><%= x %></i>
+                        </td>
+                    </tr>
+                <% }); %>
+            </tbody>
+        </table>
+    </div>
+    <hr>
+    <div>
+         <table class="center-table">
+            <thead>
+                <tr>
+                    <th colspan="4">
+                        <h1>Image alt tags present on the web page</h1>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="table-head">
+                    <td>Image</td>
+                    <td>Image Source</td>
+                    <td>Secure</td>
+                    <td>Image Alt text</td>
+                    
+                </tr>
+               <% Objlink._imgSrc.forEach(function(ele){ %>
+                    <tr>
+                        <td>
+                            <a target=_blank href="<%=ele[0]%>"><img src="<%=ele[0]%>"></a>
+                        </td>
+                        <td>
+                             <a target=_blank href="<%=ele[0]%>">  <%=ele[0]%>  </a>
+                             <%
+                                const secure = ele[0];
+                                var x = null;
+                                if(secure.match(/https/g)){
+                                    x = true;
+                                } else {
+                                    x = false;
+                                } %>
+                        </td>
+                        <td>
+                            <i style="color: red"><%= x %></i>
+                        </td>
+                        
+                        <td>
+                             <%=ele[1]%>
+                        </td>
+                    </tr>
+                <% }); %>
+            </tbody>
+        </table>
+    </div>
+</section>
+ 
+<% include ../partials/footer %>
+
+
+
+
+

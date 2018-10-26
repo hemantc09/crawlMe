@@ -1,0 +1,152 @@
+/**{*/
+/*    margin: 0;*/
+/*    padding: 0;*/
+/*    box-sizing: border-box;*/
+/*}*/
+
+html {
+    background-color: #fff;
+    color: #555;
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 300;
+    font-size: 20px;
+     /*helps to render in perfect way*/
+    text-rendering: optimizeLegibility; 
+}
+
+.row {
+    margin: 0 auto;
+    
+}
+.content {
+     border: 1px solid  #495388;
+     max-width: 600px;
+     width: 80%;
+     margin: 20px auto;
+     padding-top: 50px;
+     padding-bottom:50px;
+}
+
+section {
+    padding: 180px 0;
+}
+
+
+h1 {
+    font-weight: 400;
+    text-transform: uppercase;
+    color: #2c3e50;
+    font-size: 200%;
+    word-spacing: 2px;
+    letter-spacing: 1px;
+    text-align: center;
+    /*margin: 0;*/
+    margin-bottom: 20px;
+}
+h3 {
+    font-weight: 400;
+    color: #2c3e50;
+    font-size: 100%;
+    word-spacing: 2px;
+    letter-spacing: 1px;
+    text-align: center;
+    /*margin: 0;*/
+    margin-bottom: 20px;
+}
+    
+
+
+p {
+    font-size: 70%;
+    line-height: 145%;
+    text-align:center;
+    margin-bottom: 20px;
+}
+
+input[type=text] {
+    display: inline-block;
+    color:  #495388;
+    padding: 10px 30px;
+    text-decoration: none;
+    border: 1px solid #495388;
+    transition: background-color 1s, color 1s;
+}
+
+
+button {
+    display: inline-block;
+    color:  #495388;
+    padding: 10px 30px;
+    text-decoration: none;
+    border: 1px solid #495388;
+    transition: background-color 1s, color 1s;
+}
+
+button:hover {
+    background-color: #4CAF50; 
+    color: #fff;
+}
+
+
+.form-center {
+    margin: 0 auto; 
+    text-align: center;
+}
+
+table,
+th,
+td {
+    border: 1px solid #000000;
+    padding: 10px;
+    border-collapse: collapse;
+
+    
+}
+table {
+    table-layout: fixed;
+    max-width: 800px;
+    width: 100%
+}
+
+td {
+    word-wrap: break-word;
+}
+
+thead,
+tfoot {
+    background-color: #e8e8e8;
+    color: #fff;
+}
+
+.center-table {
+    margin: 0px auto;
+}
+
+.table-head {
+    font-weight: 400;
+    background-color: #e6fff7;
+}
+
+
+@media only screen and (max-width: 767px) {
+    .content,
+    .row{
+        padding: 25px auto;
+        width:  100%;
+        margin: 25px auto;
+    }
+    table {
+        max-width: 100%;
+    }
+}
+
+img {
+     width: 100%;
+     
+     
+}
+
+i {
+    
+    font-weight: 400;
+}
