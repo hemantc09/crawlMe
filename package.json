@@ -13,6 +13,9 @@
     "request": "^2.88.0",
     "status-check": "0.0.17"
   },
+  "scripts": {
+    "start": "node app.js"
+  }
   "author": "",
   "license": "ISC"
 }
