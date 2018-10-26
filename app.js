@@ -75,8 +75,3 @@ app.post('/routes/links', function(req, res) {
 app.listen(process.env.PORT,process.env.IP,function(){
     console.log("URL server started");
 });
-
-
-app.listen(process.env.PORT, process.env.IP,function(){
-    console.log("Joke me app server started!");
-});
