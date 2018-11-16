@@ -1,14 +1,16 @@
 <% include ../partials/header %>
 <section>
-    <row>
-        <content>
-            <h1>Enter a valid URL:</h1>
-            <p>e.g. https://www.latimes.com</p>
-                <form class="form-center" action="/routes/links" method="post">
-                    <input  type="text" name="urlString" placeholder="Enter the URL" required> 
-                    <button onclick=""> Submit the URL</button>
-                </form>
-        </content>
-    </row>
+    <div class="jumbotron center-jumbotron">
+        <row>
+            <content>
+                <h1 style="text-align: center">Enter a valid URL:</h1>
+                <p>e.g. https://www.latimes.com</p>
+                    <form class="form-center" action="/routes/links" method="post">
+                        <input  type="text" name="urlString" placeholder="Enter the URL" required> 
+                        <button onclick=""> Submit the URL</button>
+                    </form>
+            </content>
+        </row>
+    </div>
 </section>
 <% include ../partials/footer %>
