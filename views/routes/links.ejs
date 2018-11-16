@@ -24,11 +24,15 @@
             
                 <!--console.log("market is :", Objlink.url1);-->
                 <% 
+                    var trackflag = null;
+                
                     console.log("market is ", Objlink.market);
                     
                     if (Objlink.market == "bs"){
+                        
                         var tracking = "5";
                          trackflag  = true;
+                         console.log("trackflag in if bs", trackflag);
                     } else if(Objlink.market == "cg") {
                         var tracking = "10";
                          trackflag  = true;
@@ -43,7 +47,8 @@
                          trackflag  = true;
                     } else if(Objlink.market == "la") {
                         var tracking = "1";
-                         trackflag  = true;
+                        //  trackflag  = true;
+                         console.log("trackflag in if la", trackflag);
                     } else if(Objlink.market == "mc") {
                         var tracking = "8";
                          trackflag  = true;
@@ -173,7 +178,11 @@
                                     <a class="<%= classClr%>" style="color:white; text-align: center;font-weight:800"><%= x %></a>
                                     <!--trackig data-->
                                     <%
-                                        if(trackflag == true){
+                                    // console.log("trackflag:", trackflag);
+                                    var temp =  "cw_pbrd" + "=" + tracking;
+                                    console.log("temp",temp);
+                                    
+                                        if(ele.includes(temp)){
                                             classClr = "spec-background-green";
                                         }else {
                                             classClr = "spec-background-red";
