@@ -4,7 +4,7 @@ var express = require("express");
 var app = express();
 var cheerio = require('cheerio');
 var url = require('url');
-var $ = require('jquery');
+var $, $$ = require('jquery');
 var url1;
 var request = require("request");
 var bodyparser = require("body-parser");
@@ -88,13 +88,26 @@ app.post('/routes/links', function(req, res) {
       
       // url1 = "https://www.google.com"
       request(url1,function(error,response,body){
+        console.log(body.url);
+        console.log(url1);
         
         if(!error && response.statusCode == 200){
-          // console.log("status code" + response.statusCode + "errocode:"+ error);  
+           console.log("status code" + response.statusCode + "errocode:"+ error);  
           $ = cheerio.load(body);
-          //console.log("this is the body returned: " , body);
+        // console.log("this is the body returned: " , response);
           var links = $('a'); //jquery get all hyperlinks
           $(links).each(function(i, link){
+           // console.log("link:", link);
+           
+            //extract all urls
+            var urlsArr = $('a');
+            var urlEle;
+            for (urlEle in urlsArr) {
+                console.log ( urlsArr[urlEle].href );
+            }
+
+           // console.log("$(this).attr('href').length",$(this).attr('href').length + "i value is:" , i);
+            
             if($(this).attr('href').length > 0) { 
               _links.push($(link).attr('href'));  
             }
@@ -107,7 +120,7 @@ app.post('/routes/links', function(req, res) {
              
              _imgSrc.push([$(this).attr('src'), $(this).attr('alt')]); /* get src and alt for images with alt attribute */
            
-             //console.log($(this).attr('alt'));
+              //console.log($(this).attr('alt'));
            });
   
         
