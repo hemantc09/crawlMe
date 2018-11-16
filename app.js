@@ -88,11 +88,11 @@ app.post('/routes/links', function(req, res) {
       
       // url1 = "https://www.google.com"
       request(url1,function(error,response,body){
-        console.log(body.url);
+        //console.log(body.url);
         console.log(url1);
         
         if(!error && response.statusCode == 200){
-           console.log("status code" + response.statusCode + "errocode:"+ error);  
+           //console.log("status code" + response.statusCode + "errocode:"+ error);  
           $ = cheerio.load(body);
         // console.log("this is the body returned: " , response);
           var links = $('a'); //jquery get all hyperlinks
