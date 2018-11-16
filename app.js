@@ -4,7 +4,7 @@ var express = require("express");
 var app = express();
 var cheerio = require('cheerio');
 var url = require('url');
-var $, $$ = require('jquery');
+var $ = require('jquery');
 var url1;
 var request = require("request");
 var bodyparser = require("body-parser");
@@ -99,12 +99,12 @@ app.post('/routes/links', function(req, res) {
           $(links).each(function(i, link){
            // console.log("link:", link);
            
-            //extract all urls
-            var urlsArr = $('a');
-            var urlEle;
-            for (urlEle in urlsArr) {
-                console.log ( urlsArr[urlEle].href );
-            }
+            // //extract all urls
+            // var urlsArr = $('a');
+            // var urlEle;
+            // for (urlEle in urlsArr) {
+            //     console.log ( urlsArr[urlEle].href );
+            // }
 
            // console.log("$(this).attr('href').length",$(this).attr('href').length + "i value is:" , i);
             
