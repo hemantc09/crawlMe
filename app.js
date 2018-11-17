@@ -94,11 +94,7 @@ app.post('/routes/links', function(req, res) {
               
               //get the individual link
               var link = $(link).attr('href');
-              
-             
-              
               if(link.startsWith('//')){
-                 
                  //push secure link
                 link = link.replace("//", "https://");
                 _links.push(link); 
@@ -108,8 +104,6 @@ app.post('/routes/links', function(req, res) {
                 _links.push(link); 
                 // console.log(" not // link ", link);
               }
-              
-               
             }
           });
           
