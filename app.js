@@ -1,5 +1,3 @@
-
-//test : http://la.tribpubads.com/email-indie-focus/the-happy-prince.html
 var express = require("express");
 var app = express();
 var cheerio = require('cheerio');
