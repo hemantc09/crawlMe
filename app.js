@@ -6,7 +6,10 @@ var $ = require('jquery');
 var url1;
 var request = require("request");
 var bodyparser = require("body-parser");
+//for the flash messages
+var flash = require('connect-flash');
 var _links, _alt, _imgSrc;
+
 //important to get the data from the user to parse it
 app.use(bodyparser.urlencoded({extended: true}));
 
@@ -14,6 +17,23 @@ app.set("view engine","ejs");
 //set up the by default directory
 app.use(express.static(__dirname + "/public"));
 
+//=-==============
+// using for flash messages
+// app.use(flash());
+// // for the flsah messages 
+// app.use(function(req, res, next){
+//   res.message = req.flash("error");
+//   next();
+// });
+
+// app.configure(function() {
+  // app.use(express.cookieParser('keyboard cat'));
+  // app.use(express.session({ cookie: { maxAge: 60000 }}));
+  // app.use(flash());
+// });
+
+
+//==================
 //root route
 app.get("/",function(req, res) {
     res.render("routes/new");
@@ -71,8 +91,15 @@ app.post('/routes/links', function(req, res) {
       
       // url1 = "https://www.google.com"
       request(url1,function(error,response,body){
+         // Print the response status code if a response was received
+        console.log("statusCode:", response && response.statusCode);
+        // console.log("error",error);
         console.log("User entered URL", url1);
         if(!error && response.statusCode == 200){
+        
+ 
+          
+          
           $ = cheerio.load(body);
           //console.log(body);
           var links = $('a'); //jquery get all hyperlinks
@@ -119,6 +146,8 @@ app.post('/routes/links', function(req, res) {
           }
             res.render("routes/links",{Objlink: Objlink});
         } else {
+          // req.flash("error", "Please enter valid URL. See example below");
+          res.redirect("/");
           console.log("Please enter valid URL");
         }
   });
