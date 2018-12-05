@@ -8,7 +8,13 @@ var request = require("request");
 var bodyparser = require("body-parser");
 //for the flash messages
 var flash = require('connect-flash');
-var _links, _alt, _imgSrc;
+var _links, _alt, _imgSrc, _marketsBuilder;
+var market = null;
+var _EmailVersions = null;
+var markets = [ "cg" , "ct", "dp" , "hc", "la", "ny", "mc", "os", "sd", "ss", "vp" ];
+
+//console.log("markest[0]:" , markets[0]);
+
 
 //important to get the data from the user to parse it
 app.use(bodyparser.urlencoded({extended: true}));
@@ -48,7 +54,7 @@ app.get("/routes/new",function(req,res) {
 app.post('/routes/links', function(req, res) {
   //results route
     var urlString = req.body.urlString;
-    var market = null;
+    
    // var getMarket = urlString.includes("market=la");
     if(urlString.includes("market=bs"))
     {
@@ -88,6 +94,8 @@ app.post('/routes/links', function(req, res) {
       _links = new Array();
       _alt = new Array();
       _imgSrc = new Array();
+      _marketsBuilder =  new Array();
+      _EmailVersions = new Array();
       
       // url1 = "https://www.google.com"
       request(url1,function(error,response,body){
@@ -95,16 +103,131 @@ app.post('/routes/links', function(req, res) {
         console.log("statusCode:", response && response.statusCode);
         // console.log("error",error);
         console.log("User entered URL", url1);
-        if(!error && response.statusCode == 200){
         
- 
-          
-          
+        if(!error && response.statusCode == 200){
           $ = cheerio.load(body);
-          //console.log(body);
+          // console.log(body);
           var links = $('a'); //jquery get all hyperlinks
-          $(links).each(function(i, link){
+          
+          
+          
+          //select by class name for the nav top;
+          _marketsBuilder = getBuilderLinks();
+          
+          // reviewer=cg&view=preview&
+          
+          
+          for(var i = 0; i < _marketsBuilder.length ; i++) {
+            
+            //console.log("\n" + i + ">", _marketsBuilder[i] + "\n");
+            var m = markets[i];
+            
+            for(var j = 0 , count = 1; j < _marketsBuilder.length ; j++, count++) {
+              var buildEmailVersionUrl = null;
+              //assign 0  to 0 first version
+               buildEmailVersionUrl = _marketsBuilder[i];
+              //replace the URL string with the & to build the version URL 1.
+              
+              
+            //  console.log("m: and j: " + m +","+ i);
+              
+               buildEmailVersionUrl = buildEmailVersionUrl.replace("reviewer="+ m +"&view=preview&", "&");
+               buildEmailVersionUrl = buildEmailVersionUrl.replace("version=1","version="+ count);
+               console.log("buildEmailVersionUrl: " + count , buildEmailVersionUrl);
+              //console.log("_EmailVersions[i]: ", _EmailVersions[j]);
+              //===============
+              
+              
+              
+        // request(buildEmailVersionUrl,function(error,response,body){
+        //   // Print the response status code if a response was received
+        //   console.log("statusCode:", response && response.statusCode);
+        //   // console.log("error",error);
+        //   console.log("User entered URL", url1);
+          
+        //   if(!error && response.statusCode == 200){
+            $ = cheerio.load(body);
+            // console.log(body);
+            var links = $('a'); //jquery get all hyperlinks
+            
+           // getAtagLinks(links);
+            //important
+            var  Objlink = getImageLinks();
+            //important
+            res.render("routes/links",{Objlink: Objlink});
+            
+        //   }else{
+        //     //res.redirect("/");
+        //     console.log("not a valid emial version url");
+            
+        // }
+        // });
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              //===============
+              
+            
+        
+            }
+          }
+          //======
+          
+        //get the atag links important
+        //getAtagLinks(links);
+        //important
+        //var  Objlink = getImageLinks();
+        //important
+        // res.render("routes/links",{Objlink: Objlink});
+        
+        
+        
+        }
+        
+        else {
+          // req.flash("error", "Please enter valid URL. See example below");
+          res.redirect("/");
+          console.log("Please enter valid URL");
+        }
+  });
+});
+
+function getImageLinks (){
+  
+  $('img[alt]').each(function() {
+             
+            _imgSrc.push([$(this).attr('src'), $(this).attr('alt')]); /* get src and alt for images with alt attribute */
+           
+              //console.log($(this).attr('alt'));
+          });
+           
+          var Objlink = {
+              arrLinks:  _links,
+              _imgSrc: _imgSrc,
+              url1: url1,
+              market : market,
+    }
+    return Objlink;
+    
+}
+
+function getAtagLinks(links) {
+  
+  // $ = cheerio.load(body);
+  //         // console.log(body);
+  //     var links = $('a'); //jquery get all hyperlinks
+          
+          
+  $(links).each(function(i, link){
             var attr = $(this).attr('href');
+        
             //console.log("attr", attr);
             var len = null;
             if(attr != undefined){
@@ -131,27 +254,42 @@ app.post('/routes/links', function(req, res) {
               }
             }
           });
+}
+
+function getBuilderLinks () {
+    //==========
+          //get the top header links only
           
-          $('img[alt]').each(function() {
-             
-             _imgSrc.push([$(this).attr('src'), $(this).attr('alt')]); /* get src and alt for images with alt attribute */
-           
-              //console.log($(this).attr('alt'));
-           });
-          var Objlink = {
-              arrLinks:  _links,
-              _imgSrc: _imgSrc,
-              url1: url1,
-              market : market,
-          }
-            res.render("routes/links",{Objlink: Objlink});
-        } else {
-          // req.flash("error", "Please enter valid URL. See example below");
-          res.redirect("/");
-          console.log("Please enter valid URL");
-        }
-  });
-});
+          //by class name user the . 
+          
+          var nav_top = $('.nav_top');
+          
+         // console.log("nav_top", nav_top);
+          
+          //get the individual market builder
+          var index = 1 ;
+          $(nav_top).each(function(){
+            
+            var marketBuilderURL = $(this).attr('href');
+            
+            
+            
+             if(marketBuilderURL.startsWith('/')){
+                 //push secure link
+                marketBuilderURL = marketBuilderURL.replace("/", "http://troncdev.com/");
+                _marketsBuilder.push(marketBuilderURL)
+                 //console.log(index++ +":", marketBuilderURL);
+              }else{
+                // push http link
+                 _marketsBuilder.push(marketBuilderURL);
+                 
+                // console.log(" not // link ", link);
+              }
+   
+           // console.log('attr',marketBuilderURL);
+          });
+          return _marketsBuilder;
+}
   
 app.listen(process.env.PORT,process.env.IP,function(){
     console.log("URL server started");
