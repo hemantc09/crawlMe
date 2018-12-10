@@ -155,9 +155,29 @@
                             </script>
                             
                           <%    //decode the URL
-                                var decodeURL  = decodeURIComponent(ele);
-                                //console.log("decoded URL is:  ",  decodeURIComponent(ele));
-                            %>
+                                console.log("encoded URL is:  ", ele);
+                                
+
+                                //there is a problem with enocoding URL thats why we have check if the URL 
+                                //has %% wihch is  UTF 8 error and it wont encode teh things
+                                // in this case we are not decoding the URL 
+
+                                if(ele.includes("%%"))
+                                {
+                                  
+                                  decodeURL = ele;
+                                  console.log("yes cheetahmail", decodeURL);
+
+                                } else
+                                //if the URL doesnt have %% which means you can decode it.
+                                {
+                                  var decodeURL  = decodeURIComponent(ele);
+                                  console.log("NO  cheetahmail", decodeURL);
+                                }
+                                // }
+
+                                 
+                            %> 
                             
                             <li><a class="context" target="_blank" href="<%=ele%>"> <%=decodeURL%></a></li>
                         </td>
